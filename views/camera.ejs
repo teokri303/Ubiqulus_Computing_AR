@@ -23,6 +23,9 @@
 
 <script>
 
+const x = ajaxGet();
+console.log(x)
+
 
     //component registration for in-built events (this case, fired when marker is detected)
     AFRAME.registerComponent('markerhandler', {
@@ -30,6 +33,7 @@
             this.el.sceneEl.addEventListener('markerFound', (evt) => {
                 console.log("marker found");
                 console.log(evt);
+                // prospatho na peraso apo to function sto actions.js thn timh edw 
                 const x = ajaxGet();
                 console.log(x)
             })
