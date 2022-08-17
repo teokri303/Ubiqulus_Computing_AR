@@ -79,7 +79,7 @@ app.post("/register", async (req, res) => {
   if (password.length < 6) {
     errors.push({ message: "Password must be a least 6 characters long." });
   }
-  if (password.match(/[a-z]+/) == null){
+  if (password.match(/[a-z]+/) == null) {
     errors.push({ message: "Passwords must contain at least a small letter." });
   }
   if (password.match(/[A-Z]+/) == null) {
@@ -171,7 +171,7 @@ app.post("/login/home", async (req, res) => {
       }
     );
 
-    
+
     //console.log(req.session.username, req.session.password,req.session.status)
     res.render('home');
   }
@@ -182,6 +182,40 @@ app.get("/get/info", (req, res) => {
   //kapos edo tha paiksei mpala ayto stelnei ta dedomena mprosta sto ajax apo ekei kai pera 
   //edo pera tha kano query kai tha pairno apo to username to status toy tupoy kai apo to statoys 
   //tha koitao to allo table kai tha paizo me oti exei kai epitrepei ekeino to table
+})
+
+app.get("/get/on", (req, res) => {
+  pool.query(`SELECT power FROM devices WHERE ID=1`,
+    (err, results) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("State before change is " + results.rows[0].power)
+      const lamp_status = results.rows[0].power
+
+      if (lamp_status == 0) {
+        pool.query(`UPDATE devices SET power = 1 WHERE ID = 1`),
+          (err) => {
+            if (err) {
+              console.log(err);
+            }
+            console.log('Change succesful from 0 to 1')
+          }
+      }
+      else
+        pool.query(`UPDATE devices SET power = 0 WHERE ID = 1`),
+          (err) => {
+            if (err) {
+              console.log(err);
+            }
+            console.log('Change succesful from 1 to 0')
+          }
+    })
+    res.send("OK")
+    
+
+  //εδω τωρα πρεπει να μπει να εχουμε μηνυμα επιτυχιας η αποτυχιας 
+  //και την νεα τιμη
 })
 
 
@@ -208,5 +242,5 @@ server.listen(port, () => {
 */
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
-});  
+});
 
