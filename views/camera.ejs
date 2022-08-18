@@ -23,8 +23,8 @@
 
 <script>
 
-const x = ajaxGet();
-console.log(x)
+    const x = ajaxGet();
+    console.log(x)
 
 
     //component registration for in-built events (this case, fired when marker is detected)
@@ -33,9 +33,7 @@ console.log(x)
             this.el.sceneEl.addEventListener('markerFound', (evt) => {
                 console.log("marker found");
                 console.log(evt);
-                // prospatho na peraso apo to function sto actions.js thn timh edw 
-                const x = ajaxGet();
-                console.log(x)
+
             })
         }
     });
@@ -55,7 +53,7 @@ console.log(x)
             const widget = document.createElement('a-gui-label');
             widget.setAttribute('width', '1.25');
             widget.setAttribute('height', '0.25');
-            widget.setAttribute('value', 'dynamic widget');
+            widget.setAttribute('value', 'LAMP widget');
             widget.setAttribute('font-size', '0.15');
             widget.setAttribute('line-height', '0.3');
             widget.setAttribute('letter-spacing', '0.0');
@@ -83,19 +81,25 @@ console.log(x)
                 component-padding="0.1" opacity="0.6" width="1.75" height="3" panel-color="#fff" panel-rounded="0.1"
                 position="0 0.5 0" rotation="-90 0 0">
                 <!-- html for each GUI component -->
-                <a-gui-radio width="1.25" height="0.25" onclick="console.log('clickety click 1 arxiko');" value="radio label"
-                    font-size="0.15" margin="0 0 0.05 0">
+                <a-gui-label width="2" height="0.5" value="LAMP CONTROLER" line-height="0.1" letter-spacing="0"
+                    margin="0 0 0.05 0">
+                </a-gui-label>
+
+                <a-gui-radio width="1.25" height="0.25" value="radio label" font-size="0.15" margin="0 0 0.05 0">
                 </a-gui-radio>
 
-                <a-gui-button width="1.25" height="0.25" onclick=on_off() value="ON/OFF"
-                    font-size="0.15" margin="0 0 0.05 0">
+                <a-gui-button width="1.25" height="0.25" onclick=on_off() value="ON/OFF" font-size="0.15"
+                    margin="0 0 0.05 0">
                 </a-gui-button>
 
-                <a-gui-slider width="2.5" height="0.75" percent="0.29" margin="0 0 0.05 0">
+                <a-gui-label width="2" height="0.2" value="Diming precent" line-height="0.1" letter-spacing="0"
+                    margin="0 0 0.05 0" background-color='#FF8000'>
+                </a-gui-label>
+
+                <a-gui-slider width="2.5" height="0.6" percent="0.29" margin="0 0 0.05 0">
                 </a-gui-slider>
 
-                <a-gui-slider width="2.5" height="0.75" onclick="slideActionFunction" percent="1" margin="0 0 0.05 0">
-                </a-gui-slider>
+
 
 
             </a-gui-flex-container>
@@ -106,7 +110,6 @@ console.log(x)
     -->
 
         <!-- set the camera fov to 40 because the touch coordinates don't work well with the default (80)-->
-        <!-- see https://github.com/AR-js-org/AR.js/issues/271 -->
         <a-entity camera="fov:40" id="cam"></a-entity>
     </a-scene>
 </body>

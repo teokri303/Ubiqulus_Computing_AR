@@ -164,7 +164,7 @@ app.post("/login/home", async (req, res) => {
         }
 
         //Ayto einai ena test gia to pos mporei na vlepei poio einai to status toy kata to login
-        console.log(results.rows[0].status);
+        //console.log(results.rows[0].status);
         if (results.rows[0].status == 14000) {
           console.log("STATUS IS 1")
         }
