@@ -24,23 +24,28 @@
 <script>
 
     const x = ajaxGet();
-    console.log(x)
+    //console.log(x)
 
-
+/*
     //component registration for in-built events (this case, fired when marker is detected)
     AFRAME.registerComponent('markerhandler', {
         init: function () {
             this.el.sceneEl.addEventListener('markerFound', (evt) => {
                 console.log("marker found");
                 console.log(evt);
+                create_panel();
+                
 
             })
         }
     });
 
+
+
     //example of adding a scene component (this case, mouse cursor and a UI widget) dynamically, after scene is loaded
     AFRAME.registerComponent('dynamic-elements', {
         init: function () {
+            
             //best to define the mouse cursor after the scene initialisation, to get appropriate
             //viewport coordinates...
             const scene = AFRAME.scenes[0];
@@ -50,10 +55,11 @@
             scene.appendChild(mouseCursor);
 
             const controlpanel = document.getElementById('thepanel');
-            const widget = document.createElement('a-gui-label');
+            const widget = document.createElement('a-gui-toggle');
             widget.setAttribute('width', '1.25');
             widget.setAttribute('height', '0.25');
             widget.setAttribute('value', 'LAMP widget');
+            widget.setAttribute('toggle-state', 'true');
             widget.setAttribute('font-size', '0.15');
             widget.setAttribute('line-height', '0.3');
             widget.setAttribute('letter-spacing', '0.0');
@@ -63,7 +69,7 @@
     });
 
 
-
+*/
 </script>
 
 <body style="margin : 0px; overflow: hidden;">
@@ -88,20 +94,6 @@
                 <a-gui-radio width="1.25" height="0.25" value="radio label" font-size="0.15" margin="0 0 0.05 0">
                 </a-gui-radio>
 
-                <a-gui-button width="1.25" height="0.25" onclick=on_off() value="ON/OFF" font-size="0.15"
-                    margin="0 0 0.05 0">
-                </a-gui-button>
-
-                <a-gui-label width="2" height="0.2" value="Diming precent" line-height="0.1" letter-spacing="0"
-                    margin="0 0 0.05 0" background-color='#FF8000'>
-                </a-gui-label>
-
-                <a-gui-slider width="2.5" height="0.6" percent="0.29" margin="0 0 0.05 0">
-                </a-gui-slider>
-
-
-
-
             </a-gui-flex-container>
         </a-marker>
 
@@ -112,6 +104,8 @@
         <!-- set the camera fov to 40 because the touch coordinates don't work well with the default (80)-->
         <a-entity camera="fov:40" id="cam"></a-entity>
     </a-scene>
+
+    <script src="/js/actions.js"></script>    
 </body>
 
 </html>

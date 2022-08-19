@@ -165,7 +165,7 @@ app.post("/login/home", async (req, res) => {
 
         //Ayto einai ena test gia to pos mporei na vlepei poio einai to status toy kata to login
         //console.log(results.rows[0].status);
-        if (results.rows[0].status == 14000) {
+        if (results.rows[0].status == 1) {
           console.log("STATUS IS 1")
         }
       }
@@ -216,6 +216,25 @@ app.get("/get/on", (req, res) => {
 
   //εδω τωρα πρεπει να μπει να εχουμε μηνυμα επιτυχιας η αποτυχιας 
   //και την νεα τιμη
+})
+
+//apo edw tha erxontai ta dedomena ta opoia meta tha phgainoyn mprosta
+//gia na dhmioytgeite dynamika to panel
+app.get("/create/panel", (req, res) => {
+  pool.query(`SELECT * FROM device_permissions WHERE ID=1; 
+  SELECT * FROM device_attributes WHERE ID=1; SELECT * FROM device_values WHERE ID=1;`,
+    (err, results) => {
+      if (err) {
+        console.log(err);
+      }
+      //console.log(results[0].rows)
+      //console.log(results[1].rows)
+      //console.log(results[2].rows)
+
+      res.send(results)
+    })
+    
+  
 })
 
 
