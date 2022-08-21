@@ -7,7 +7,7 @@ AFRAME.registerComponent('markerhandler', {
         this.el.addEventListener('markerFound',  (evt) => {
             console.log("marker found");
             console.log(evt);
-            //create_panel();
+            create_panel();
             
            
             
@@ -66,7 +66,7 @@ function create_panel() {
 
     console.log(result)
     
-/*
+
     // deutero register component
     AFRAME.registerComponent('dynamic-elements', {
         init: function () {
@@ -92,7 +92,7 @@ function create_panel() {
             controlpanel.appendChild(widget);
 
         },
-    });*/
+    });
     console.log("IM HEREEEEEEEEEE")
 
 };
