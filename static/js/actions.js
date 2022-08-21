@@ -26,11 +26,9 @@ function create_panel() {
         url: "/create/panel",
         success: function (result) {
 
-            //console.log(result[0].rows[0])
-            //console.log(result[1].rows[0])
-            console.log(result[2].rows[0])
-            //console.log("IM IN THE CREATE PANEL")
-
+            console.log(result[0].rows[0]) //permissions
+            console.log(result[1].rows[0]) //attributes
+            console.log(result[2].rows[0]) //values
 
             //best to define the mouse cursor after the scene initialisation, to get appropriate
             //viewport coordinates...
@@ -40,12 +38,16 @@ function create_panel() {
             mouseCursor.setAttribute('raycaster', 'objects: [gui-interactable]');
             scene.appendChild(mouseCursor);
 
+
+            var data = "result[1].rows[0]"
+            var x = eval(data + '.'+'power')
+            console.log(x)
+
             const controlpanel = document.getElementById('thepanel');
-            const widget = document.createElement('a-gui-toggle');
+            const widget = document.createElement(x);
             widget.setAttribute('width', '1.25');
             widget.setAttribute('height', '0.25');
             widget.setAttribute('value', 'LAMP widget');
-            widget.setAttribute('toggle-state', 'true');
             widget.setAttribute('font-size', '0.15');
             widget.setAttribute('line-height', '0.3');
             widget.setAttribute('letter-spacing', '0.0');
@@ -53,7 +55,7 @@ function create_panel() {
             controlpanel.appendChild(widget);
 
 
-            console.log("IM HEREEEEEEEEEE")
+            
 
         }
 
@@ -152,7 +154,20 @@ function add_wig() {
 /*
 --- comments for next session 
 
-to thema einai sto markerhandler resistration pou den ginetai kai kala alla den ksero giati
+
+            //i have to find a way to read each value from attributes and
+            //display it to the constructor.
+
+            //me auti tin taktiki leitourgei xrhsimopoio to eval kai to kanei
+            //na do tora pos tha ginetai genika me ton pinaka poy elega na kano
+            // [power,intensity,color,smode]
+
+            //tha mpainei se ena for kai stin arxi tha allazei to onoma opos to ekana edo
+            //meta tha koitaei tis times ton permission kai meta me ena for opos ekana edw ksana
+            //tha phgainei na ftiaxnei to kathe component
+            
+            //episis prepei na skefto pos tha termatizei ayto kapos oste na  min triggaretai
+            //kathe fora poy tha vlepei ton marker.
 
 
 

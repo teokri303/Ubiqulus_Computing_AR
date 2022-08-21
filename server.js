@@ -230,8 +230,11 @@ app.get("/create/panel", (req, res) => {
       //console.log(results[0].rows)
       //console.log(results[1].rows)
       //console.log(results[2].rows)
+      
+      var data = results
 
-      res.send(results)
+      res.send(data)
+    
     })
     
   
