@@ -222,7 +222,8 @@ app.get("/get/on", (req, res) => {
 //gia na dhmioytgeite dynamika to panel
 app.get("/create/panel", (req, res) => {
   pool.query(`SELECT * FROM device_permissions WHERE ID=1; 
-  SELECT * FROM device_attributes WHERE ID=1; SELECT * FROM device_values WHERE ID=1;`,
+  SELECT * FROM device_attributes WHERE ID=1; SELECT * FROM device_values WHERE ID=1;
+  SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'device_values'`,
     (err, results) => {
       if (err) {
         console.log(err);
@@ -230,8 +231,10 @@ app.get("/create/panel", (req, res) => {
       //console.log(results[0].rows)
       //console.log(results[1].rows)
       //console.log(results[2].rows)
-      
-      var data = results
+
+      //stelno mono ta dedomena apo to teleytaio query gia na tsekaro ti paei
+      //gia ta onomata ton trapezion
+      var data = results[3].rows[1].column_name
 
       res.send(data)
     

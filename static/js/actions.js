@@ -169,6 +169,9 @@ function add_wig() {
             //episis prepei na skefto pos tha termatizei ayto kapos oste na  min triggaretai
             //kathe fora poy tha vlepei ton marker.
 
+            //episis vrika oti mporo na pairno me to query to teleutaio poy exo sto server
+            //ta onomata ton columns ton trapezion...na do pos mporo na to mplekso kai ayto
+            
 
 
 
