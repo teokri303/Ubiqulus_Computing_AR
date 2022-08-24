@@ -234,7 +234,9 @@ app.get("/create/panel", (req, res) => {
 
       //stelno mono ta dedomena apo to teleytaio query gia na tsekaro ti paei
       //gia ta onomata ton trapezion
-      var data = results[3].rows[1].column_name
+      
+      var data = results
+      
 
       res.send(data)
     

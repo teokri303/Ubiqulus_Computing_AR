@@ -29,6 +29,7 @@ function create_panel() {
             console.log(result[0].rows[0]) //permissions
             console.log(result[1].rows[0]) //attributes
             console.log(result[2].rows[0]) //values
+            console.log(result[3].rows[0]) // columns names
 
             //best to define the mouse cursor after the scene initialisation, to get appropriate
             //viewport coordinates...
@@ -38,54 +39,39 @@ function create_panel() {
             mouseCursor.setAttribute('raycaster', 'objects: [gui-interactable]');
             scene.appendChild(mouseCursor);
 
+            for (let i = 1; i < Object.keys(result[0].rows[0]).length; i++) {
 
-            var data = "result[1].rows[0]"
-            var x = eval(data + '.'+'power')
-            console.log(x)
+                var permisson = "result[0].rows[0]"
+                var per_value = eval(permisson + '.' + result[3].rows[i].column_name)
+                
+                if (per_value == 1) {
 
-            const controlpanel = document.getElementById('thepanel');
-            const widget = document.createElement(x);
-            widget.setAttribute('width', '1.25');
-            widget.setAttribute('height', '0.25');
-            widget.setAttribute('value', 'LAMP widget');
-            widget.setAttribute('font-size', '0.15');
-            widget.setAttribute('line-height', '0.3');
-            widget.setAttribute('letter-spacing', '0.0');
-            widget.setAttribute('margin', '0 0 0.1 0');
-            controlpanel.appendChild(widget);
+                    var data = "result[1].rows[0]"
+                    var d_value = eval(data + '.' + result[3].rows[i].column_name)
+                    console.log(d_value)
+
+                   
+    
+                    const controlpanel = document.getElementById('thepanel');
+                    const widget = document.createElement(d_value);
+                    widget.setAttribute('width', '1.25');
+                    widget.setAttribute('height', '0.25');
+                    widget.setAttribute('value', 'LAMP widget');
+                    widget.setAttribute('font-size', '0.15');
+                    widget.setAttribute('line-height', '0.3');
+                    widget.setAttribute('letter-spacing', '0.0');
+                    widget.setAttribute('margin', '0 0 0.1 0');
+                    controlpanel.appendChild(widget);
+
+                }
 
 
-            
+            }
+
 
         }
 
     });
-
-    console.log(result)
-
-
-
-
-    //best to define the mouse cursor after the scene initialisation, to get appropriate
-    //viewport coordinates...
-    const scene = AFRAME.scenes[0];
-    const mouseCursor = document.createElement('a-entity');
-    mouseCursor.setAttribute('cursor', 'rayOrigin: mouse; fuse: false');
-    mouseCursor.setAttribute('raycaster', 'objects: [gui-interactable]');
-    scene.appendChild(mouseCursor);
-
-    const controlpanel = document.getElementById('thepanel');
-    const widget = document.createElement('a-gui-toggle');
-    widget.setAttribute('width', '1.25');
-    widget.setAttribute('height', '0.25');
-    widget.setAttribute('value', 'LAMP widget');
-    widget.setAttribute('toggle-state', 'true');
-    widget.setAttribute('font-size', '0.15');
-    widget.setAttribute('line-height', '0.3');
-    widget.setAttribute('letter-spacing', '0.0');
-    widget.setAttribute('margin', '0 0 0.1 0');
-    controlpanel.appendChild(widget);
-
 
     console.log("IM HEREEEEEEEEEE")
 
@@ -120,31 +106,8 @@ function on_off() {
 };
 
 function add_wig() {
-    //example of adding a scene component (this case, mouse cursor and a UI widget) dynamically, after scene is loaded
-    AFRAME.registerComponent('dynamic-elements', {
-        init: function () {
 
-            //best to define the mouse cursor after the scene initialisation, to get appropriate
-            //viewport coordinates...
-            const scene = AFRAME.scenes[0];
-            const mouseCursor = document.createElement('a-entity');
-            mouseCursor.setAttribute('cursor', 'rayOrigin: mouse; fuse: false');
-            mouseCursor.setAttribute('raycaster', 'objects: [gui-interactable]');
-            scene.appendChild(mouseCursor);
 
-            const controlpanel = document.getElementById('thepanel');
-            const widget = document.createElement('a-gui-toggle');
-            widget.setAttribute('width', '1.25');
-            widget.setAttribute('height', '0.25');
-            widget.setAttribute('value', 'LAMP widget');
-            widget.setAttribute('toggle-state', 'true');
-            widget.setAttribute('font-size', '0.15');
-            widget.setAttribute('line-height', '0.3');
-            widget.setAttribute('letter-spacing', '0.0');
-            widget.setAttribute('margin', '0 0 0.1 0');
-            controlpanel.appendChild(widget);
-        },
-    });
 }
 
 
