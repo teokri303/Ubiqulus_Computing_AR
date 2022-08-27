@@ -7,7 +7,6 @@ const flash = require('express-flash');
 const app = express();
 const key = fs.readFileSync('./cert/CA/localhost/localhost.decrypted.key')
 const cert = fs.readFileSync('./cert/CA/localhost/localhost.crt')
-//const port = 3000;
 const db = require('./database');
 const { pool } = require('./database');
 
