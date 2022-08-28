@@ -36,6 +36,7 @@ function my_func() {
 };
 
 
+
 function create_panel() {
     $.ajax({
         type: "GET",
@@ -73,42 +74,40 @@ function create_panel() {
                     var v_value = eval(values + '.' + result[3].rows[i].column_name)
                     console.log(v_value)
 
-                    /*
-                    if (d_value == 'a-gui-button') {
 
+
+                    if (d_value == 'a-gui-button') {
                         const controlpanel = document.getElementById('thepanel');
                         const widget = document.createElement(d_value);
-                        widget.setAttribute('width', '1.25');
+                        widget.setAttribute('width', '2.5');
                         widget.setAttribute('height', '0.25');
-                        widget.setAttribute('value', 'LAMP widget');
+                        widget.setAttribute('value', result[3].rows[i].column_name + "ON/OFF");
                         widget.setAttribute('font-size', '0.15');
                         widget.setAttribute('line-height', '0.3');
-                        widget.setAttribute('letter-spacing', '0.0');
-                        widget.setAttribute('margin', '0 0 0.1 0');
-                        widget.setAttribute('background-color', '#FF5252');
+                        widget.setAttribute('margin', "0 0 0.2 0");
+                        widget.setAttribute('background-color', v_value);
+                        widget.setAttribute('onclick', "lamp_on_off");
+                        widget.setAttribute('id', result[3].rows[i].column_name)
 
                         controlpanel.appendChild(widget);
                     }
-*/
+                    else {
+                        const controlpanel = document.getElementById('thepanel');
+                        const widget = document.createElement(d_value);
+                        widget.setAttribute('width', '2.5');
+                        widget.setAttribute('height', '0.25');
+                        widget.setAttribute('value', result[3].rows[i].column_name);
+                        widget.setAttribute('font-size', '0.15');
+                        widget.setAttribute('line-height', '0.3');
+                        widget.setAttribute('percent', v_value);
+                        widget.setAttribute('margin', "0 0 0.2 0");
+                        widget.setAttribute('letter-spacing', '0.0');
+                        widget.setAttribute('onclick', "my_func");
 
+                        controlpanel.appendChild(widget);
 
+                    }
 
-
-                
-                    //edw prospatho na kskiniso to toggle me on state alla den douleuei me tipota
-                    //milisa kai me sunadelfoys kai me ola kai den ginetai tipota opote anagkastika pame 
-                    //se koumpia me diaforetika xromata
-
-                    const controlpanel = document.getElementById('thepanel');
-                    const widget = document.createElement('a-gui-toggle');
-                    widget.setAttribute('width', '1.25');
-                    widget.setAttribute('height', '0.25');
-                    widget.setAttribute('value', 'TOGGLEEEEE widget');
-                    widget.setAttribute('font-size', '0.1');
-                    widget.setAttribute('onclick', "my_func"); //δουλευειιιι
-
-                    controlpanel.appendChild(widget);
-                    
 
 
 
@@ -142,12 +141,22 @@ function ajaxGet() {
 
 
 
-function on_off() {
+function lamp_on_off() {
     $.ajax({
         type: "GET",
-        url: "/get/on",
+        url: "/get/on/off",
         success: function (result) {
-            console.log("CHANGE DONE")
+            if (result == '#FF5252') {
+                const lamp_switch = document.getElementById('power');
+                lamp_switch.setAttribute('value', 'power ON')
+                lamp_switch.setAttribute('background-color', '#00FF00')
+
+            }
+            else {
+                const lamp_switch = document.getElementById('power');
+                lamp_switch.setAttribute('value', ' power OFF')
+                lamp_switch.setAttribute('background-color', '#FF5252')
+            }
         }
     });
 };
@@ -160,6 +169,15 @@ function on_off() {
 /*
 --- comments for next session 
 
+εχει δουλεψει το on_off τωρα πρεπει μετα να κανω λογικα ενα νεο πινακα ωστε να κανει assign 
+απευθειας τα functions στα σωστα κουμπια ενα ενα
+
+μετα να φτιαξω τα functions για το τι θα κανει καθε κουμπι για το καθενα
+
+και τελος να βλεπω πως να μπει μεσα σε ολο αυτο να παιρνει τον clearence code του ανθρωπου
+και να του δινει τα καταλληλα εργαλεια αναλογα με την δικαιοδοσια του 
+
+πολυ μετα απο αυτο να κανω απλα και αλλο ενα marker scene 
 
 
 

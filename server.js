@@ -183,35 +183,53 @@ app.get("/get/info", (req, res) => {
   //tha koitao to allo table kai tha paizo me oti exei kai epitrepei ekeino to table
 })
 
-app.get("/get/on", (req, res) => {
-  pool.query(`SELECT power FROM devices WHERE ID=1`,
+
+//allagh state tis lampas
+app.get("/get/on/off", (req, res) => {
+
+  pool.query(`SELECT power FROM device_values WHERE id=1`,
     (err, results) => {
       if (err) {
         console.log(err);
       }
-      console.log("State before change is " + results.rows[0].power)
-      const lamp_status = results.rows[0].power
+
+      var value = results.rows[0].power;
+      //console.log(results.rows[0].power);
+      res.send(results.rows[0].power)
+      
+
+      if (value == "#FF5252") {
+        console.log("State before change was OFF ")
+        var lamp_status = 0;
+      }
+      else {
+        console.log("State before change was ON ")
+        var lamp_status = 1;
+      }
 
       if (lamp_status == 0) {
-        pool.query(`UPDATE devices SET power = 1 WHERE ID = 1`),
+        pool.query(`UPDATE device_values SET power = '#00FF00' WHERE id = 1`),
           (err) => {
             if (err) {
               console.log(err);
             }
-            console.log('Change succesful from 0 to 1')
           }
+          console.log('Change succesful from OFF to ON')
       }
       else
-        pool.query(`UPDATE devices SET power = 0 WHERE ID = 1`),
+        pool.query(`UPDATE device_values SET power = '#FF5252' WHERE id = 1`),
           (err) => {
             if (err) {
               console.log(err);
             }
-            console.log('Change succesful from 1 to 0')
           }
-    })
-    res.send("OK")
+          console.log('Change succesful from ON to OFF')
+        
+    }
     
+  )
+  
+
 
   //εδω τωρα πρεπει να μπει να εχουμε μηνυμα επιτυχιας η αποτυχιας 
   //και την νεα τιμη
@@ -233,15 +251,15 @@ app.get("/create/panel", (req, res) => {
 
       //stelno mono ta dedomena apo to teleytaio query gia na tsekaro ti paei
       //gia ta onomata ton trapezion
-      
+
       var data = results
-      
+
 
       res.send(data)
-    
+
     })
-    
-  
+
+
 })
 
 
