@@ -199,11 +199,11 @@ app.get("/get/on/off", (req, res) => {
       
 
       if (value == "#FF5252") {
-        console.log("State before change was OFF ")
+        // State before change was OFF 
         var lamp_status = 0;
       }
       else {
-        console.log("State before change was ON ")
+        // State before change was ON 
         var lamp_status = 1;
       }
 
@@ -214,7 +214,7 @@ app.get("/get/on/off", (req, res) => {
               console.log(err);
             }
           }
-          console.log('Change succesful from OFF to ON')
+          console.log('Change succesful from OFF to ON \n')
       }
       else
         pool.query(`UPDATE device_values SET power = '#FF5252' WHERE id = 1`),
@@ -223,20 +223,40 @@ app.get("/get/on/off", (req, res) => {
               console.log(err);
             }
           }
-          console.log('Change succesful from ON to OFF')
+          console.log('Change succesful from ON to OFF \n')
         
     }
     
   )
-  
-
 
   //εδω τωρα πρεπει να μπει να εχουμε μηνυμα επιτυχιας η αποτυχιας 
   //και την νεα τιμη
 })
 
-//apo edw tha erxontai ta dedomena ta opoia meta tha phgainoyn mprosta
-//gia na dhmioytgeite dynamika to panel
+
+
+//allagh state tis lampas
+app.post("/get/diming", (req, res) => {
+
+  const percent = JSON.parse(JSON.stringify(req.body));
+  console.log(percent.value)
+  
+  pool.query(`SELECT intensity FROM device_values WHERE id=1`,
+    (err, results) => {
+      if (err) {
+        console.log(err);
+      }
+        
+    }
+    
+  )
+
+  //εδω τωρα πρεπει να μπει να εχουμε μηνυμα επιτυχιας η αποτυχιας 
+  //και την νεα τιμη
+})
+
+
+
 app.get("/create/panel", (req, res) => {
   pool.query(`SELECT * FROM device_permissions WHERE ID=1; 
   SELECT * FROM device_attributes WHERE ID=1; SELECT * FROM device_values WHERE ID=1;
@@ -245,12 +265,10 @@ app.get("/create/panel", (req, res) => {
       if (err) {
         console.log(err);
       }
-      //console.log(results[0].rows)
-      //console.log(results[1].rows)
-      //console.log(results[2].rows)
-
-      //stelno mono ta dedomena apo to teleytaio query gia na tsekaro ti paei
-      //gia ta onomata ton trapezion
+      //console.log(results[0].rows) permissions
+      //console.log(results[1].rows) attributes 
+      //console.log(results[2].rows) values
+      //console.log(results[3].rows) column names
 
       var data = results
 

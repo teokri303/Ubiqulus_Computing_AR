@@ -79,7 +79,7 @@ function create_panel() {
                     if (d_value == 'a-gui-button') {
                         const controlpanel = document.getElementById('thepanel');
                         const widget = document.createElement(d_value);
-                        widget.setAttribute('width', '2.5');
+                        widget.setAttribute('width', '2');
                         widget.setAttribute('height', '0.25');
                         widget.setAttribute('value', result[3].rows[i].column_name + "ON/OFF");
                         widget.setAttribute('font-size', '0.15');
@@ -94,15 +94,15 @@ function create_panel() {
                     else {
                         const controlpanel = document.getElementById('thepanel');
                         const widget = document.createElement(d_value);
-                        widget.setAttribute('width', '2.5');
+                        widget.setAttribute('width', '2.1');
                         widget.setAttribute('height', '0.25');
                         widget.setAttribute('value', result[3].rows[i].column_name);
                         widget.setAttribute('font-size', '0.15');
                         widget.setAttribute('line-height', '0.3');
                         widget.setAttribute('percent', v_value);
                         widget.setAttribute('margin', "0 0 0.2 0");
-                        widget.setAttribute('letter-spacing', '0.0');
-                        widget.setAttribute('onclick', "my_func");
+                        widget.setAttribute('onclick', "lamp_diming");
+                        widget.setAttribute('id', result[3].rows[i].column_name)
 
                         controlpanel.appendChild(widget);
 
@@ -161,6 +161,21 @@ function lamp_on_off() {
     });
 };
 
+function lamp_diming(click, percent) {
+    var data = percent
+    console.log(data)
+
+    // to stelnei sosta to thema einai tora na pairno tin sosti timi
+    $.ajax({
+        type: "POST",
+        url: "/get/diming",
+        data: { 'value' : data} ,
+        success: function (result) {
+            console.log(result)
+        }
+    });
+};
+
 
 
 
@@ -169,15 +184,15 @@ function lamp_on_off() {
 /*
 --- comments for next session 
 
-εχει δουλεψει το on_off τωρα πρεπει μετα να κανω λογικα ενα νεο πινακα ωστε να κανει assign 
+1) εχει δουλεψει το on_off τωρα πρεπει μετα να κανω λογικα ενα νεο πινακα ωστε να κανει assign 
 απευθειας τα functions στα σωστα κουμπια ενα ενα
 
-μετα να φτιαξω τα functions για το τι θα κανει καθε κουμπι για το καθενα
+2) μετα να φτιαξω τα functions για το τι θα κανει καθε κουμπι για το καθενα
 
-και τελος να βλεπω πως να μπει μεσα σε ολο αυτο να παιρνει τον clearence code του ανθρωπου
+3) και τελος να βλεπω πως να μπει μεσα σε ολο αυτο να παιρνει τον clearence code του ανθρωπου
 και να του δινει τα καταλληλα εργαλεια αναλογα με την δικαιοδοσια του 
 
-πολυ μετα απο αυτο να κανω απλα και αλλο ενα marker scene 
+4) πολυ μετα απο αυτο να κανω απλα και αλλο ενα marker scene 
 
 
 
