@@ -196,7 +196,7 @@ app.get("/get/on/off", (req, res) => {
       var value = results.rows[0].power;
       //console.log(results.rows[0].power);
       res.send(results.rows[0].power)
-      
+
 
       if (value == "#FF5252") {
         // State before change was OFF 
@@ -214,7 +214,7 @@ app.get("/get/on/off", (req, res) => {
               console.log(err);
             }
           }
-          console.log('Change succesful from OFF to ON \n')
+        console.log('Change succesful from OFF to ON \n')
       }
       else
         pool.query(`UPDATE device_values SET power = '#FF5252' WHERE id = 1`),
@@ -223,10 +223,10 @@ app.get("/get/on/off", (req, res) => {
               console.log(err);
             }
           }
-          console.log('Change succesful from ON to OFF \n')
-        
+      console.log('Change succesful from ON to OFF \n')
+
     }
-    
+
   )
 
   //εδω τωρα πρεπει να μπει να εχουμε μηνυμα επιτυχιας η αποτυχιας 
@@ -240,19 +240,67 @@ app.post("/get/diming", (req, res) => {
 
   const percent = JSON.parse(JSON.stringify(req.body));
   console.log(percent.value)
-  
-  pool.query(`SELECT intensity FROM device_values WHERE id=1`,
+
+  pool.query(`UPDATE device_values SET intensity = $1 WHERE id=1`,
+    [percent.value],
     (err, results) => {
       if (err) {
         console.log(err);
       }
-        
+      res.send("Update of slider in db ...DONE")
     }
-    
+
+  )
+})
+
+//allagh rgb color lights
+app.post("/change/color", (req, res) => {
+
+  //genika pairnoyme tin thesi ston pinaka tis uparxousas timis kai tinpame mprosta
+  //oste na kserei poia eixame kai na valei tin epomeni
+
+  var colors = ['#E0E0E0', '#FF0000', '#FF8000', '#00CC00', '#0000FF']
+
+  pool.query(`SELECT color FROM device_values WHERE id=1`,
+    (err, results) => {
+      if (err) {
+        console.log(err);
+      }
+      var current = results.rows[0].color
+      var num = colors.indexOf(current)
+
+      console.log(num)
+      //DEN ALLAZOUN SOSTA TA NOUMERA
+
+      if (num == colors.length - 1) {
+        num = -1
+        next_col = 0
+      }
+      else {
+        next_col = num + 1
+        console.log(next_col)
+      }
+
+
+
+
+      pool.query(`UPDATE device_values SET color = $1 WHERE id=1`,
+        [colors[next_col]],
+        (err, results) => {
+          if (err) {
+            console.log(err);
+          }
+          console.log("database update ok")
+        }
+
+      )
+
+
+      res.send(num.toString())
+    }
   )
 
-  //εδω τωρα πρεπει να μπει να εχουμε μηνυμα επιτυχιας η αποτυχιας 
-  //και την νεα τιμη
+
 })
 
 
@@ -260,7 +308,8 @@ app.post("/get/diming", (req, res) => {
 app.get("/create/panel", (req, res) => {
   pool.query(`SELECT * FROM device_permissions WHERE ID=1; 
   SELECT * FROM device_attributes WHERE ID=1; SELECT * FROM device_values WHERE ID=1;
-  SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'device_values'`,
+  SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'device_values'; 
+  SELECT * FROM device_functions WHERE ID=1`,
     (err, results) => {
       if (err) {
         console.log(err);

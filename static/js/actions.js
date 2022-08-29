@@ -74,6 +74,10 @@ function create_panel() {
                     var v_value = eval(values + '.' + result[3].rows[i].column_name)
                     console.log(v_value)
 
+                    var functions = "result[4].rows[0]"
+                    var f_value = eval(functions + '.' + result[3].rows[i].column_name)
+                    console.log(f_value)
+
 
 
                     if (d_value == 'a-gui-button') {
@@ -86,7 +90,7 @@ function create_panel() {
                         widget.setAttribute('line-height', '0.3');
                         widget.setAttribute('margin', "0 0 0.2 0");
                         widget.setAttribute('background-color', v_value);
-                        widget.setAttribute('onclick', "lamp_on_off");
+                        widget.setAttribute('onclick', f_value);
                         widget.setAttribute('id', result[3].rows[i].column_name)
 
                         controlpanel.appendChild(widget);
@@ -101,7 +105,7 @@ function create_panel() {
                         widget.setAttribute('line-height', '0.3');
                         widget.setAttribute('percent', v_value);
                         widget.setAttribute('margin', "0 0 0.2 0");
-                        widget.setAttribute('onclick', "lamp_diming");
+                        widget.setAttribute('onclick', f_value);
                         widget.setAttribute('id', result[3].rows[i].column_name)
 
                         controlpanel.appendChild(widget);
@@ -120,9 +124,6 @@ function create_panel() {
         }
 
     });
-
-    console.log("IM HEREEEEEEEEEE")
-
 };
 
 
@@ -163,15 +164,48 @@ function lamp_on_off() {
 
 function lamp_diming(click, percent) {
     var data = percent
-    console.log(data)
-
-    // to stelnei sosta to thema einai tora na pairno tin sosti timi
+    //console.log(data)
     $.ajax({
         type: "POST",
         url: "/get/diming",
-        data: { 'value' : data} ,
+        data: { 'value': data },
         success: function (result) {
             console.log(result)
+        }
+    });
+};
+
+
+function change_color() {
+
+    var colors = ['#E0E0E0', '#FF0000', '#FF8000', '#00CC00', '#0000FF']
+    var c_names = ['REGULAR WHITE', 'RED', 'ORANGE', 'GREEN', 'BLUE']
+
+    $.ajax({
+        type: "POST",
+        url: "/change/color",
+        success: function (result) {
+            //console.log(result)
+
+            var potition = parseInt(result) + 1
+
+            //DEN ALLAZOUN SOSTA TA NOUMERA
+           
+
+            if (potition == colors.length -1 ) {
+                potition = 0
+              }
+
+            console.log(potition)
+
+            
+
+            const rgb = document.getElementById('color');
+            rgb.setAttribute('value', c_names[potition])
+            rgb.setAttribute('background-color', colors[potition])
+
+
+
         }
     });
 };
@@ -185,7 +219,7 @@ function lamp_diming(click, percent) {
 --- comments for next session 
 
 1) εχει δουλεψει το on_off τωρα πρεπει μετα να κανω λογικα ενα νεο πινακα ωστε να κανει assign 
-απευθειας τα functions στα σωστα κουμπια ενα ενα
+απευθειας τα functions στα σωστα κουμπια ενα ενα 
 
 2) μετα να φτιαξω τα functions για το τι θα κανει καθε κουμπι για το καθενα
 
@@ -193,6 +227,9 @@ function lamp_diming(click, percent) {
 και να του δινει τα καταλληλα εργαλεια αναλογα με την δικαιοδοσια του 
 
 4) πολυ μετα απο αυτο να κανω απλα και αλλο ενα marker scene 
+
+5) πρεπει να φτιαξω στα functions των αλλαγων να τσεκαρει το res αν ειναι οκ και αν δεν ειναι
+    να πεταει σφαλμα οτι η τιμη δεν αλλαξε
 
 
 
