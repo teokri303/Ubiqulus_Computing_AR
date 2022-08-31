@@ -57,7 +57,6 @@ app.get('/camera', (req, res) => {
 
 
 
-
 //registration handler
 app.post("/register", async (req, res) => {
   let { email, username, password, secpassword } = req.body;
@@ -155,8 +154,8 @@ app.post("/login/home", async (req, res) => {
 
     pool.query(
       `SELECT status FROM people
-          WHERE username = $1 and password = $2`,
-      [req.session.username, req.session.password],
+          WHERE username = $1`,
+      [req.session.username],
       (err, results) => {
         if (err) {
           console.log(err);
@@ -164,9 +163,8 @@ app.post("/login/home", async (req, res) => {
 
         //Ayto einai ena test gia to pos mporei na vlepei poio einai to status toy kata to login
         //console.log(results.rows[0].status);
-        if (results.rows[0].status == 1) {
-          console.log("STATUS IS 1")
-        }
+        console.log(results.rows[0].status)
+        console.log(req.session.username)
       }
     );
 
@@ -176,13 +174,34 @@ app.post("/login/home", async (req, res) => {
   }
 });
 
+
+
+
+
+
 app.get("/get/info", (req, res) => {
-  res.send(req.session.username)
+  
+  pool.query(`SELECT status FROM people WHERE username = $1`,
+        [req.session.username],
+        (err, results) => {
+          if (err) {
+            console.log(err);
+          }
+          console.log(req.session.username)
+          console.log(results.rows[0].status)
+          var data = results.rows[0].status
+          res.send(data.toString())
+        }
+      )
+
+      
   //kapos edo tha paiksei mpala ayto stelnei ta dedomena mprosta sto ajax apo ekei kai pera 
   //edo pera tha kano query kai tha pairno apo to username to status toy tupoy kai apo to statoys 
   //tha koitao to allo table kai tha paizo me oti exei kai epitrepei ekeino to table
 })
 
+
+//----------------------------- lamp ----------------------------------------------------|
 
 //allagh state tis lampas
 app.get("/get/on/off", (req, res) => {
@@ -214,7 +233,7 @@ app.get("/get/on/off", (req, res) => {
               console.log(err);
             }
           }
-        console.log('Change succesful from OFF to ON \n')
+        console.log('Change power succesful from OFF to ON \n')
       }
       else
         pool.query(`UPDATE device_values SET power = '#FF5252' WHERE id = 1`),
@@ -223,7 +242,7 @@ app.get("/get/on/off", (req, res) => {
               console.log(err);
             }
           }
-      console.log('Change succesful from ON to OFF \n')
+      console.log('Change power succesful from ON to OFF \n')
 
     }
 
@@ -232,8 +251,6 @@ app.get("/get/on/off", (req, res) => {
   //εδω τωρα πρεπει να μπει να εχουμε μηνυμα επιτυχιας η αποτυχιας 
   //και την νεα τιμη
 })
-
-
 
 //allagh state tis lampas
 app.post("/get/diming", (req, res) => {
@@ -269,19 +286,20 @@ app.post("/change/color", (req, res) => {
       var current = results.rows[0].color
       var num = colors.indexOf(current)
 
-      console.log(num)
-      //DEN ALLAZOUN SOSTA TA NOUMERA
+      //console.log(num)
 
       if (num == colors.length - 1) {
         num = -1
-        next_col = 0
+        var next_col = 0
       }
       else {
-        next_col = num + 1
-        console.log(next_col)
+        var next_col = num + 1
+        //console.log(next_col)
       }
 
-
+     
+      console.log(num + "\n")
+      res.send(next_col.toString())
 
 
       pool.query(`UPDATE device_values SET color = $1 WHERE id=1`,
@@ -294,14 +312,65 @@ app.post("/change/color", (req, res) => {
         }
 
       )
-
-
-      res.send(num.toString())
     }
   )
 
 
 })
+
+//allagh state tis lampas
+app.get("/smode/on/off", (req, res) => {
+
+  pool.query(`SELECT smode FROM device_values WHERE id=1`,
+    (err, results) => {
+      if (err) {
+        console.log(err);
+      }
+
+      var value = results.rows[0].smode;
+      console.log(results.rows[0].smode);
+      res.send(results.rows[0].smode)
+
+
+      if (value == "#FF5252") {
+        // State before change was OFF 
+        var smode_status = 0;
+      }
+      else {
+        // State before change was ON 
+        var smode_status = 1;
+      }
+
+      if (smode_status == 0) {
+        pool.query(`UPDATE device_values SET smode = '#00FF00' WHERE id = 1`),
+          (err) => {
+            if (err) {
+              console.log(err);
+            }
+          }
+        console.log('Change smode succesful from OFF to ON \n')
+      }
+      else
+        pool.query(`UPDATE device_values SET smode = '#FF5252' WHERE id = 1`),
+          (err) => {
+            if (err) {
+              console.log(err);
+            }
+          }
+      console.log('Change smode succesful from ON to OFF \n')
+
+    }
+
+  )
+
+  //εδω τωρα πρεπει να μπει να εχουμε μηνυμα επιτυχιας η αποτυχιας 
+  //και την νεα τιμη
+})
+
+//----------------------------- lamp ----------------------------------------------------|
+
+
+
 
 
 
@@ -309,23 +378,38 @@ app.get("/create/panel", (req, res) => {
   pool.query(`SELECT * FROM device_permissions WHERE ID=1; 
   SELECT * FROM device_attributes WHERE ID=1; SELECT * FROM device_values WHERE ID=1;
   SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'device_values'; 
-  SELECT * FROM device_functions WHERE ID=1`,
+  SELECT * FROM device_functions WHERE ID=1;`,
     (err, results) => {
       if (err) {
         console.log(err);
       }
-      //console.log(results[0].rows) permissions
-      //console.log(results[1].rows) attributes 
-      //console.log(results[2].rows) values
-      //console.log(results[3].rows) column names
+      //console.log(results[0].rows) //permissions
+      //console.log(results[1].rows) //attributes 
+      //console.log(results[2].rows) //values
+      //console.log(results[3].rows) //column names
+      //console.log(results[4].rows) //functions 
 
-      var data = results
+      var first_res = results;
 
 
-      res.send(data)
+      //Apo edw pairnoyme to status tou user kai to stelno mazi me ta dedomena tou panel
+      pool.query(`SELECT status FROM people WHERE username = $1`,
+        [req.session.username],
+        (err, results) => {
+          if (err) {
+            console.log(err);
+          }
+    
+          var status = results.rows[0].status
 
+          var data = [first_res, status]
+          
+          res.send(data)
+        }
+        
+      )
+    
     })
-
 
 })
 
