@@ -10,13 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <!-- see https://github.com/rdub80/aframe-gui/issues/64 -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <!-- ar.js library -->
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <!-- aframe-gui library -->
     <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
-    <!-- dat-gui library (required by aframe-gui) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5.1/dat.gui.min.js" type="text/javascript"></script>
     <script src="/js/actions.js"></script>
 </head>
@@ -70,19 +66,13 @@
 
 <body style="margin : 0px; overflow: hidden;">
 
-    <!-- html for the setup of the AR environment -->
-    <!-- everything needs to be in a scene -->
-    <!-- 2D marker types found here https://github.com/nicolocarpignoli/artoolkit-barcode-markers-collection -->
     <a-scene embedded
         arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_9_3; emitevents:true;'
         gui-env dynamic-elements>
-        <!-- scene should have a marker to detect, in this case, a simple HIRO marker -->
         <a-marker id="themarker" type='barcode' value='5' markerhandler>
-            <!-- over the marker, we display some GUI components, they need to be inside a container -->
             <a-gui-flex-container id="thepanel" flex-direction="column" justify-content="center" align-items="normal"
                 component-padding="0.1" opacity="0.6" width="1.75" height="3" panel-color="#fff" panel-rounded="0.1"
                 position="0 0.5 0" rotation="-90 0 0">
-                <!-- html for each GUI component -->
                 <a-gui-label width="2" height="0.3" value="LAMP CONTROLER" line-height="0.1" letter-spacing="0" font-size="0.2"
                     margin="0 0 0.4 0" >
                 </a-gui-label>
@@ -90,11 +80,7 @@
             </a-gui-flex-container>
         </a-marker>
 
-        <!-- if we didn't do the dynamic adding of this entity, this is where it would be declared
-    <a-entity id="mouseCursor"> cursor="rayOrigin: mouse" raycaster="objects: [gui-interactable]"></a-entity>
-    -->
-
-        <!-- set the camera fov to 40 because the touch coordinates don't work well with the default (80)-->
+     
         <a-entity camera="fov:40" id="cam"></a-entity>
     </a-scene>
 

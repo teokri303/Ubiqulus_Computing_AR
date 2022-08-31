@@ -18,10 +18,13 @@ p,.greeding {
   font-size: 20px;
   font-weight: 500;
   font-style: italic;
+  width: 350px;
+  display: grid;
+  place-items: center;
 }
 .wrapper{
   overflow: hidden;
-  width: 430px;
+  width: 350px;
   height: 520px;
   background: #fff;
   padding: 30px;
