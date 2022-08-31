@@ -11,13 +11,15 @@ AFRAME.registerComponent('markerhandler', {
 
 
 
-            //mouse cursor shouldnt added more than one time
+            //mouse cursor shouldnt added more than one time dhmiourgei buggs an den perioristei
             while (function_activation == 1) {
                 const scene = AFRAME.scenes[0];
                 const mouseCursor = document.createElement('a-entity');
                 mouseCursor.setAttribute('cursor', 'rayOrigin: mouse; fuse: false');
                 mouseCursor.setAttribute('raycaster', 'objects: [gui-interactable]');
                 scene.appendChild(mouseCursor);
+
+
                 create_panel();
                 function_activation = 0;
             }
@@ -30,25 +32,6 @@ AFRAME.registerComponent('markerhandler', {
 
     }
 });
-
-
-function my_func() {
-    console.log("TESTTTTTTTTTTTTTTTTTTTTT PASSED ");
-};
-
-function get_status() {
-
-    $.ajax({
-        type: "GET",
-        url: "/get/info",
-        success: function (result) {
-            console.log(result)
-            var status = result
-        }
-    });
-
-}
-
 
 
 
@@ -235,6 +218,12 @@ function lamp_smode_on_off() {
 /*
 --- comments for next session 
 
+
+2) να φτιαξω ενα τροπο αν γινεται να μπορει να βλεπει δυο μαρκερ στο ιδιο δωματιο χωρις
+να χρειαζεται reset
+
+3)υπαρχει ενα θεμα που σκεφτηκα μολις οτι αμα εχω στο ιδιο δωματιο δυο markers 
+και θελω να δω μια τον εναν μια τον αλλον δεν θα γινεται γιατι στην ουσια κλεισω το activation με το πρωτο  trigger
 
 4) πολυ μετα απο αυτο να κανω απλα και αλλο ενα marker scene 
 

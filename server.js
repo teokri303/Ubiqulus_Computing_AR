@@ -174,11 +174,6 @@ app.post("/login/home", async (req, res) => {
   }
 });
 
-
-
-
-
-
 app.get("/get/info", (req, res) => {
   
   pool.query(`SELECT status FROM people WHERE username = $1`,
@@ -194,11 +189,11 @@ app.get("/get/info", (req, res) => {
         }
       )
 
-      
-  //kapos edo tha paiksei mpala ayto stelnei ta dedomena mprosta sto ajax apo ekei kai pera 
-  //edo pera tha kano query kai tha pairno apo to username to status toy tupoy kai apo to statoys 
-  //tha koitao to allo table kai tha paizo me oti exei kai epitrepei ekeino to table
 })
+
+
+
+
 
 
 //----------------------------- lamp handlers ----------------------------------------------------|
@@ -247,12 +242,9 @@ app.get("/get/on/off", (req, res) => {
     }
 
   )
-
-  //εδω τωρα πρεπει να μπει να εχουμε μηνυμα επιτυχιας η αποτυχιας 
-  //και την νεα τιμη
 })
 
-//allagh state tis lampas
+//allagh fwteinothtas
 app.post("/get/diming", (req, res) => {
 
   const percent = JSON.parse(JSON.stringify(req.body));
@@ -264,7 +256,7 @@ app.post("/get/diming", (req, res) => {
       if (err) {
         console.log(err);
       }
-      res.send("Update of slider in db ...DONE")
+      res.send("Update of slider value in db ")
     }
 
   )
@@ -273,7 +265,7 @@ app.post("/get/diming", (req, res) => {
 //allagh rgb color lights
 app.post("/change/color", (req, res) => {
 
-  //genika pairnoyme tin thesi ston pinaka tis uparxousas timis kai tinpame mprosta
+  //pairnoyme tin thesi ston pinaka tis uparxousas timis kai tinpame mprosta
   //oste na kserei poia eixame kai na valei tin epomeni
 
   var colors = ['#E0E0E0', '#FF0000', '#FF8000', '#00CC00', '#0000FF']
@@ -318,7 +310,7 @@ app.post("/change/color", (req, res) => {
 
 })
 
-//allagh state tis lampas
+//energopoish kai apenergopoihsh to special mode tis lampas (smode)
 app.get("/smode/on/off", (req, res) => {
 
   pool.query(`SELECT smode FROM device_values WHERE id=1`,
@@ -362,9 +354,6 @@ app.get("/smode/on/off", (req, res) => {
     }
 
   )
-
-  //εδω τωρα πρεπει να μπει να εχουμε μηνυμα επιτυχιας η αποτυχιας 
-  //και την νεα τιμη
 })
 
 //----------------------------- lamp handlers ----------------------------------------------------|
@@ -372,7 +361,8 @@ app.get("/smode/on/off", (req, res) => {
 
 
 
-
+// vasiko handler gia tin dhmiourgia tou panel
+// stelnei ola ta dedomena ppoy xreiazetai o client gia na ftiaksei to panel
 app.get("/create/panel", (req, res) => {
   pool.query(`SELECT * FROM device_permissions WHERE ID=1; 
   SELECT * FROM device_attributes WHERE ID=1; SELECT * FROM device_values WHERE ID=1;
@@ -423,17 +413,19 @@ app.get("/create/panel", (req, res) => {
 
 const https = require('https');
 const server = https.createServer({ key, cert }, app);
-
-
-
 const port = 3000;
 
-//bazo to proto otan thelo na douleuei se https kai gia kinita
+//bazo to proto option otan thelo na douleuei se https kai gia kinita kathos 
+//xrisimopoiei to https certificate poy dimiourgisa
+
+//first option
 /*
 server.listen(port, () => {
   console.log(`Server is listening on https://localhost:${port}`);
 });
 */
+
+//second option 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 });
