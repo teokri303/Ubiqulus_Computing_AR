@@ -66,6 +66,7 @@
 
 <body style="margin : 0px; overflow: hidden;">
 
+    <!-- OFFICE LAMP MARKER PANEL -->
     <a-scene embedded
         arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_9_3; emitevents:true;'
         gui-env dynamic-elements>
@@ -80,17 +81,20 @@
             </a-gui-flex-container>
         </a-marker>
 
-        // paradeigma gia to pos xreiazetai mallon na ginei gia na mporei an vlepei dyo marker etsi tha dimiourgithei kai allos enas markerhandler
-        <a-marker id="themarker2" type='barcode' value='11' markerhandler>
+
+        <!-- OFFICE SHEETS MARKER PANEL 
+        <a-marker id="themarker2" type='barcode' value='11' markerhandler2>
             <a-gui-flex-container id="thepanel2" flex-direction="column" justify-content="center" align-items="normal"
                 component-padding="0.1" opacity="0.6" width="1.75" height="3" panel-color="#fff" panel-rounded="0.1"
                 position="0 0.5 0" rotation="-90 0 0">
-                <a-gui-label width="2" height="0.3" value="SHEETS CONTROLER" line-height="0.1" letter-spacing="0" font-size="0.2"
+                <a-gui-label width="2" height="0.3" value="SHEETS CONTROLER" line-height="0.1" letter-spacing="0" font-size="0.1"
                     margin="0 0 0.4 0" >
                 </a-gui-label>
 
             </a-gui-flex-container>
         </a-marker>
+
+        -->
 
      
         <a-entity camera="fov:40" id="cam"></a-entity>

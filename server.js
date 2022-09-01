@@ -51,8 +51,11 @@ app.get('/login.ejs', (req, res) => {
   res.render('login')
 });
 
-app.get('/camera', (req, res) => {
-  res.render('camera');
+app.get('/officecamera', (req, res) => {
+  res.render('officecam');
+});
+app.get('/livingcamera', (req, res) => {
+  res.render('livingroomcam');
 });
 
 
@@ -363,11 +366,52 @@ app.get("/smode/on/off", (req, res) => {
 
 // vasiko handler gia tin dhmiourgia tou panel
 // stelnei ola ta dedomena ppoy xreiazetai o client gia na ftiaksei to panel
-app.get("/create/panel", (req, res) => {
+app.get("/lamp/create/panel", (req, res) => {
   pool.query(`SELECT * FROM device_permissions WHERE ID=1; 
   SELECT * FROM device_attributes WHERE ID=1; SELECT * FROM device_values WHERE ID=1;
   SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'device_values'; 
   SELECT * FROM device_functions WHERE ID=1;`,
+    (err, results) => {
+      if (err) {
+        console.log(err);
+      }
+      //console.log(results[0].rows) //permissions
+      //console.log(results[1].rows) //attributes 
+      //console.log(results[2].rows) //values
+      //console.log(results[3].rows) //column names
+      //console.log(results[4].rows) //functions 
+
+      var first_res = results;
+
+
+      //Apo edw pairnoyme to status tou user kai to stelno mazi me ta dedomena tou panel
+      pool.query(`SELECT status FROM people WHERE username = $1`,
+        [req.session.username],
+        (err, results) => {
+          if (err) {
+            console.log(err);
+          }
+    
+          var status = results.rows[0].status
+
+          var data = [first_res, status]
+          
+          res.send(data)
+        }
+        
+      )
+    
+    })
+
+})
+
+
+
+app.get("/sheets/create/panel", (req, res) => {
+  pool.query(`SELECT * FROM device_permissions WHERE id=2; 
+  SELECT * FROM device_attributes WHERE ID=2; SELECT * FROM device_values WHERE id=2;
+  SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'device_values'; 
+  SELECT * FROM device_functions WHERE id=2;`,
     (err, results) => {
       if (err) {
         console.log(err);
@@ -419,14 +463,14 @@ const port = 3000;
 //xrisimopoiei to https certificate poy dimiourgisa
 
 //first option
-/*
+
 server.listen(port, () => {
   console.log(`Server is listening on https://localhost:${port}`);
 });
-*/
+/*
 
 //second option 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 });
-
+*/
