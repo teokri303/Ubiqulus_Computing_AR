@@ -123,7 +123,7 @@ function lamp_create_panel() {
 
 
 
-var sheets_function_activation = 1;
+var blinds_function_activation = 1;
 AFRAME.registerComponent('markerhandler2', {
     init: function () {
         this.el.addEventListener('markerFound', (evt) => {
@@ -133,30 +133,30 @@ AFRAME.registerComponent('markerhandler2', {
             //mouse cursor shouldnt added more than one time dhmiourgei buggs an den perioristei
 
             //mouse cursor shouldnt added more than one time dhmiourgei buggs an den perioristei
-            if (sheets_function_activation == 1 && coursor_activation == 1 ) {
+            if (blinds_function_activation == 1 && coursor_activation == 1 ) {
                 const scene = AFRAME.scenes[0];
                 const mouseCursor = document.createElement('a-entity');
                 mouseCursor.setAttribute('cursor', 'rayOrigin: mouse; fuse: false');
                 mouseCursor.setAttribute('raycaster', 'objects: [gui-interactable]');
                 scene.appendChild(mouseCursor);
 
-                sheets_create_panel();
-                sheets_function_activation = 0;
+                blinds_create_panel();
+                blinds_function_activation = 0;
                 coursor_activation = 0;
             }    
-            else if(sheets_function_activation == 1 && coursor_activation == 0 ){
-                sheets_create_panel();
-                sheets_function_activation = 0;
+            else if(blinds_function_activation == 1 && coursor_activation == 0 ){
+                blinds_create_panel();
+                blinds_function_activation = 0;
             }    
 
         })
     }
 });
 
-function sheets_create_panel() {
+function blinds_create_panel() {
     $.ajax({
         type: "GET",
-        url: "/sheets/create/panel",
+        url: "/blinds/create/panel",
         success: function (result) {
 
             //console.log(result[0][0].rows[0]) //permissions
@@ -191,7 +191,7 @@ function sheets_create_panel() {
                     var f_value = eval(functions + '.' + result[0][3].rows[i].column_name)
                     //console.log(f_value)
 
-
+                    var labels = ["Shades UP/DOWN", "Antiglare Mode", "Smode"]
 
                     if (d_value == 'a-gui-button') {
                         let id = result[0][3].rows[i].column_name + '2'
@@ -200,7 +200,7 @@ function sheets_create_panel() {
                         const widget = document.createElement(d_value);
                         widget.setAttribute('width', '2');
                         widget.setAttribute('height', '0.25');
-                        widget.setAttribute('value', id + "ON/OFF");
+                        widget.setAttribute('value', labels[i-1] );
                         widget.setAttribute('font-size', '0.15');
                         widget.setAttribute('line-height', '0.3');
                         widget.setAttribute('margin', "0 0 0.2 0");
@@ -215,9 +215,9 @@ function sheets_create_panel() {
                         console.log(id)
                         const controlpanel = document.getElementById('thepanel2');
                         const widget = document.createElement(d_value);
-                        widget.setAttribute('width', '2.1');
-                        widget.setAttribute('height', '0.25');
-                        widget.setAttribute('value', id);
+                        widget.setAttribute('width', '0.4');
+                        widget.setAttribute('height', '1');
+                        widget.setAttribute('value', labels[i-1]);
                         widget.setAttribute('font-size', '0.15');
                         widget.setAttribute('line-height', '0.3');
                         widget.setAttribute('percent', v_value);
@@ -345,7 +345,7 @@ function my_func(){
 
 
 /*
-//----------------------------- sheets functions ----------------------------------------------------|
+//----------------------------- blinds functions ----------------------------------------------------|
 
 function lamp_on_off() {
     $.ajax({
@@ -430,7 +430,7 @@ function lamp_smode_on_off() {
     });
 };
 
-//----------------------------- sheets functions ----------------------------------------------------|
+//----------------------------- blinds functions ----------------------------------------------------|
 
 */
 
@@ -442,18 +442,11 @@ function lamp_smode_on_off() {
 
 /*
 --- comments for next session 
-
+1) πρεπε απλα να φιταξω καποιες βασικες λειτουργιες για το δευτερο μαρκερ αυτο μονο να αλλαζουν τις τιμες στους στην βαση
 
 2) να φτιαξω ενα τροπο αν γινεται να μπορει να βλεπει δυο μαρκερ στο ιδιο δωματιο χωρις
 να χρειαζεται reset
 
-3)υπαρχει ενα θεμα που σκεφτηκα μολις οτι αμα εχω στο ιδιο δωματιο δυο markers 
-και θελω να δω μια τον εναν μια τον αλλον δεν θα γινεται γιατι στην ουσια κλεισω το activation με το πρωτο  trigger
-
-4) πολυ μετα απο αυτο να κανω απλα και αλλο ενα marker scene 
-
-5) πρεπει να φτιαξω στα functions των αλλαγων να τσεκαρει το res αν ειναι οκ και αν δεν ειναι
-    να πεταει σφαλμα οτι η τιμη δεν αλλαξε
 
 
 

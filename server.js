@@ -407,7 +407,7 @@ app.get("/lamp/create/panel", (req, res) => {
 
 
 
-app.get("/sheets/create/panel", (req, res) => {
+app.get("/blinds/create/panel", (req, res) => {
   pool.query(`SELECT * FROM device_permissions WHERE id=2; 
   SELECT * FROM device_attributes WHERE ID=2; SELECT * FROM device_values WHERE id=2;
   SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'device_values'; 
