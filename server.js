@@ -164,7 +164,7 @@ app.post("/login/home", async (req, res) => {
           console.log(err);
         }
 
-        //Ayto einai ena test gia to pos mporei na vlepei poio einai to status toy kata to login
+        //Etsi vlepei poio eiani to status kata to login
         //console.log(results.rows[0].status);
         console.log(results.rows[0].status)
         console.log(req.session.username)

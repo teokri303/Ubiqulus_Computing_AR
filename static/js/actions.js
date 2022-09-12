@@ -54,6 +54,9 @@ function lamp_create_panel() {
 
             for (let i = 1; i < Object.keys(result[0][0].rows[0]).length; i++) {
 
+                //xrhsimopoio to eval  gia na kano ta onomata pou xreiazomai metavlitew oste na mporesoyn na xrisimopoihthoun
+                // ws orismata gia ta apotelesmata mou
+
                 var permisson = "result[0][0].rows[0]"
                 var per_value = eval(permisson + '.' + result[0][3].rows[i].column_name)
 
@@ -339,18 +342,16 @@ function lamp_smode_on_off() {
 //----------------------------- lamp functions ----------------------------------------------------|
 
 
-function my_func(){
-    console.log("TEEEEEEEEEEEEEEEEEEEEEEEE------------------SSSSSSSSSSSSS-----------------TTTTTTTTTTTTTTTTTTTT")
-}
+
 
 
 /*
 //----------------------------- blinds functions ----------------------------------------------------|
 
-function lamp_on_off() {
+function blinds_on_off() {
     $.ajax({
         type: "GET",
-        url: "/get/on/off",
+        url: "/blinds/on/off",
         success: function (result) {
             if (result == '#FF5252') {
                 const lamp_switch = document.getElementById('power');
@@ -368,12 +369,12 @@ function lamp_on_off() {
 };
 
 
-function lamp_diming(click, percent) {
+function blinds_height(click, percent) {
     var data = percent
     //console.log(data)
     $.ajax({
         type: "POST",
-        url: "/get/diming",
+        url: "/change/blinds/height",
         data: { 'value': data },
         success: function (result) {
             console.log(result)
@@ -382,53 +383,7 @@ function lamp_diming(click, percent) {
 };
 
 
-function lamp_change_color() {
 
-    var colors = ['#E0E0E0', '#FF0000', '#FF8000', '#00CC00', '#0000FF']
-    var c_names = ['REGULAR WHITE', 'RED', 'ORANGE', 'GREEN', 'BLUE']
-
-    $.ajax({
-        type: "POST",
-        url: "/change/color",
-        success: function (result) {
-            //console.log(result)
-
-            var potition = parseInt(result)
-
-            console.log(potition)
-
-
-
-            const rgb = document.getElementById('color');
-            rgb.setAttribute('value', c_names[potition])
-            rgb.setAttribute('background-color', colors[potition])
-
-
-
-        }
-    });
-};
-
-
-function lamp_smode_on_off() {
-    $.ajax({
-        type: "GET",
-        url: "/smode/on/off",
-        success: function (result) {
-            if (result == '#FF5252') {
-                const smode_switch = document.getElementById('smode');
-                smode_switch.setAttribute('value', 'smode ON')
-                smode_switch.setAttribute('background-color', '#00FF00')
-
-            }
-            else {
-                const smode_switch = document.getElementById('smode');
-                smode_switch.setAttribute('value', ' smode OFF')
-                smode_switch.setAttribute('background-color', '#FF5252')
-            }
-        }
-    });
-};
 
 //----------------------------- blinds functions ----------------------------------------------------|
 
@@ -436,19 +391,3 @@ function lamp_smode_on_off() {
 
 
 
-
-
-
-
-/*
---- comments for next session 
-1) πρεπε απλα να φιταξω καποιες βασικες λειτουργιες για το δευτερο μαρκερ αυτο μονο να αλλαζουν τις τιμες στους στην βαση
-
-2) να φτιαξω ενα τροπο αν γινεται να μπορει να βλεπει δυο μαρκερ στο ιδιο δωματιο χωρις
-να χρειαζεται reset
-
-
-
-
-
-*/
