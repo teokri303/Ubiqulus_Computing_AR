@@ -1,7 +1,7 @@
 # Ubiqulus Computing AR 📱🕶️
 
 ## Overview
-**Ubiqulus Computing AR** is an innovative full-stack application that revolutionizes smart home control through augmented reality (AR). With just a smartphone, users can scan QR codes around their home, triggering immersive AR control panels powered by the AFRAME library. These panels allow for real-time interaction with various home devices. The app uses Node.js on the backend and PostgreSQL to store and manage device data, ensuring that your settings are always up-to-date.
+**Ubiqulus Computing AR** is an innovative full-stack application that offers smart home control scenarios through augmented reality (AR). With just a smartphone, users can scan QR codes around their home, triggering immersive AR control panels powered by the AFRAME library. These panels allow for real-time interaction with various home devices. The app uses Node.js on the backend and PostgreSQL to store and manage device data.
 
 ## Features 🕹️
 - **QR Code Scanning**: Seamlessly connect to your devices using your phone's camera.
