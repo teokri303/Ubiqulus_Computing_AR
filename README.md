@@ -1,21 +1,22 @@
-# Ubiqulus Computing AR 💻🕶️
+# Ubiqulus Computing AR 📱🕶️
 
 ## Overview
-**Ubiqulus Computing AR** is a project focused on integrating augmented reality (AR) into ubiquitous computing environments. The aim is to enhance user interaction with their surroundings through AR technologies, providing innovative solutions for real-world applications.
+**Ubiqulus Computing AR** is an innovative full-stack application that revolutionizes smart home control through augmented reality (AR). With just a smartphone, users can scan QR codes around their home, triggering immersive AR control panels powered by the AFRAME library. These panels allow for real-time interaction with various home devices. The app uses Node.js on the backend and PostgreSQL to store and manage device data, ensuring that your settings are always up-to-date.
 
-## Features
-- **Augmented Reality Integration**: Enhance physical environments with AR overlays.
-- **Ubiquitous Computing**: Seamless interaction with multiple devices.
-- **User Interaction**: Intuitive and immersive AR experiences.
+## Features 🕹️
+- **QR Code Scanning**: Seamlessly connect to your devices using your phone's camera.
+- **AR Control Panels**: Interactive panels appear over QR codes for device control.
+- **Real-Time Data Management**: Device states are stored in PostgreSQL and updated instantly with every change.
+- **Full-Stack Integration**: Node.js for the server-side logic, EJS for templating, and JavaScript for dynamic interactions.
 
-## Technologies Used
-- **Unity 3D**: For building AR experiences.
-- **Vuforia SDK**: AR tracking and recognition.
-- **C#**: Scripting for Unity.
-- **Android/iOS**: Mobile platform compatibility.
+## Technologies Used 🛠️
+- **AFRAME**: Web-based AR framework for creating immersive experiences.
+- **Node.js**: Backend server handling API requests and device management.
+- **PostgreSQL**: Database storing device states, user settings, and historical data.
+- **EJS**: Templating engine for dynamic web pages.
+- **JavaScript**: Front-end scripting for QR code scanning and interactive elements.
+- **HTML/CSS**: Markup and styling for the application's front end.
 
-## File Structure
-- `Assets/`: Contains Unity assets and scripts.
-- `ProjectSettings/`: Configuration files for the Unity project.
-- `README.md`: Project documentation.
+ 
+
 
